@@ -51,12 +51,8 @@ For other CUDA versions which are not listed in the GUI change:
 
 pasting that url on your browser will give you the list of dependencies which will be installed with torch - torchvision and torchaudio.
 
-Now can convert the Pytorch model to ONNX using the following Jupyter notebook:
-<a href="https://github.com/MatteoMendula/TensorRT-YOLOv8-Instance-Segmentation/blob/main/export_onnx.ipynb">
-  <p align="center">
-    <img width="30" height="10" src="https://docs.servicestack.net/img/pages/apps/jupyter-python.png">
-  </p>
-</a>
+Now can convert the Pytorch model to ONNX using the following Jupyter notebook: [Jupyter notebook](https://github.com/MatteoMendula/TensorRT-YOLOv8-Instance-Segmentation/blob/main/export_onnx.ipynb)
+
 **N.B.** when you export the model remember to set the input size you used to run the inference with TRT 
 
 ## Build a TRT engine with trtexec
