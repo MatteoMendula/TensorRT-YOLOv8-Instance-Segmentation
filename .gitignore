@@ -1,1 +1,4 @@
 __pycache__
+
+yolov8s-seg.onnx
+yolov8s-seg.pt
