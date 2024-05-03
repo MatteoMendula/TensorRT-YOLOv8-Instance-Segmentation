@@ -1,8 +1,9 @@
 # TensorRT YOLOv8 Instance Segmentation
 
 Python scripts performing instance segmentation using the **YOLOv8** model in Python3.
-![! ONNX YOLOv8 Instance Segmentation](https://github.com/ibaiGorordo/ONNX-YOLOv8-Instance-Segmentation/raw/main/doc/img/detected_objects.jpg)
+![! ONNX YOLOv8 Instance Segmentation](https://github.com/MatteoMendula/TensorRT-YOLOv8-Instance-Segmentation/blob/main/railway_masked_image_1.jpg?raw=true)
 *Original image*: https://upload.wikimedia.org/wikipedia/commons/2/26/Sena_Line_close_to_Mutarara_%284077096513%29.jpg
+This is the result of a finetuning on railway images, the model is able to detect the railway mask and the objects on it.
 
 This represents my personal take on extensive online resources, although I couldn't replicate it verbatim. Hence, I developed my custom pipeline to execute Yolov8-seg on TRT.
 I've exclusively tested this on Jetson TX2, so I cannot guarantee its compatibility with other platforms.
@@ -50,8 +51,12 @@ For other CUDA versions which are not listed in the GUI change:
 
 pasting that url on your browser will give you the list of dependencies which will be installed with torch - torchvision and torchaudio.
 
-Now can convert the Pytorch model to ONNX using the following Google Colab notebook:
-![Open In Colab](https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)
+Now can convert the Pytorch model to ONNX using the following Jupyter notebook:
+<a href="https://github.com/MatteoMendula/TensorRT-YOLOv8-Instance-Segmentation/blob/main/export_onnx.ipynb">
+  <p align="center">
+    <img width="600" height="300" src="https://docs.servicestack.net/img/pages/apps/jupyter-python.png">
+  </p>
+</a>
 **N.B.** when you export the model remember to set the input size you used to run the inference with TRT 
 
 ## Build a TRT engine with trtexec
