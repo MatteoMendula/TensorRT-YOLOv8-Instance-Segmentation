@@ -91,4 +91,3 @@ Again a big thank you to the main authors:
  - [Nvidia TensortRT](https://github.com/NVIDIA/TensorRT)
  - [Neutron.app](https://netron.app/) for ONNX model analysis
  - [ONNX runtime](https://onnxruntime.ai/docs/tutorials/mobile/pose-detection.html) for postprocessing debuggin on my laptop
-# TensorRT-YOLOv8-Instance-Segmentation
