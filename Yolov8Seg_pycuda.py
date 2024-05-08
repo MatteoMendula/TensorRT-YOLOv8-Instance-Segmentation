@@ -350,7 +350,8 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--engine_path', type=str, required=True, help='Path to the engine')
     parser.add_argument('--image_path', type=str, required=False, help='Path to the image')
-    parser.add_argument('--camera_id', type=bool, default=False, help='Use camera')
+    parser.add_argument('--camera', type=bool, default=False, help='Use camera')
+    parser.add_argument('--camera_id', type=int, default=0, help='Use camera')
     parser.add_argument('--width', type=int, default=1280, help='Width of the camera frame')
     parser.add_argument('--height', type=int, default=960, help='Height of the camera frame')
     parser.add_argument('--threshold_detection', type=float, default=0.5, help='Threshold for detection')
@@ -362,17 +363,19 @@ def parse_args():
 def main(args):
 
     # one of image_path or camera must be provided
-    if not args.image_path and not args.camera_id:
+    if not args.image_path and not args.camera:
         print('Please provide either image_path or camera_id')
         return
     
     # in case of camera, width and height must be provided
-    if args.camera_id and not args.width and not args.height:
-        print('Please provide width and height for the camera')
+    if args.camera and not args.camera_id and not args.width and not args.height:
+        print('Please provide camera_id, width and height for the camera')
         return
 
     # Load the image
-    image = cv2.imread(args.image_path)
+    image = get_input_image(args)
+
+    print("input image shape", image.shape)
     # Load the engine
     engine = TRTEngine(args.engine_path)
 
@@ -400,6 +403,10 @@ def main(args):
                                                   threshold_detection=0.5,
                                                   theshold_iou=0.45,
                                                   threshold_mask=0)
+
+    # n detection
+    print("n masks: ", len(l_mask))
+
     # Show masks
     show_masks(image, l_mask,l_class,l_conf,l_boxes, should_save=args.save_output)
 
