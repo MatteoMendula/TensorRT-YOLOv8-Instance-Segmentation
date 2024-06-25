@@ -1,8 +1,8 @@
 # TensorRT YOLOv8 Instance Segmentation
 
 Python scripts performing instance segmentation using the **YOLOv8** model in Python3.
-![! ONNX YOLOv8 Instance Segmentation](https://github.com/MatteoMendula/TensorRT-YOLOv8-Instance-Segmentation/blob/main/original_bus_832x1088.jpg?raw=true)
-*Original image*: https://upload.wikimedia.org/wikipedia/commons/2/26/Sena_Line_close_to_Mutarara_%284077096513%29.jpg
+![! ONNX YOLOv8 Instance Segmentation](https://github.com/MatteoMendula/TensorRT-YOLOv8-Instance-Segmentation/blob/main/segmented.jpg?raw=true)
+*Original image*: Ultralytics
 This is the result of a finetuning on railway images, the model is able to detect the railway mask and the objects on it.
 
 This represents my personal take on extensive online resources, although I couldn't replicate it verbatim. Hence, I developed my custom pipeline to execute Yolov8-seg on TRT.
