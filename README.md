@@ -76,7 +76,7 @@ The engine parsing together with pre/post processing have been condensed in a si
 Here the inference is done with [pycuda](https://pypi.org/project/pycuda/), allocating memory from and to the GPU with high level APIs.
 So simply run:
 
-    python3 Yolov8Seg_pycuda.py --engine_path yolov8s_rail_seg_best.engine --image_path resize1280x960_railway.jpg --save_output True
+    python3 Yolov8Seg_pycuda.py --engine_path yolov8s-seg.engine --image_path resize1280x960_railway.jpg --save_output True
 
 # Sources
 
