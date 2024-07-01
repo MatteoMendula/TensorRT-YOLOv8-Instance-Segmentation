@@ -293,6 +293,8 @@ def show_masks(image, l_mask, l_class, l_conf, l_boxes, should_save=False):
 
     masked_image = np.copy(image)
     
+    idx = 0
+
     for idx, mask in enumerate(l_mask):
         # Apply mask on the original image with opacity
         color = colors[idx]
@@ -312,13 +314,11 @@ def show_masks(image, l_mask, l_class, l_conf, l_boxes, should_save=False):
         # add label
         cv2.putText(masked_image, f'{CLASSES[l_class[idx]]} {l_conf[idx]:.2f}', (x + 2, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 5)
 
-        # cv2.imshow(f'Masked Image {idx + 1}', masked_image)
-        # cv2.waitKey(0)
-
     # save
     if should_save:
-        cv2.imwrite(f'railway_masked_image_{idx + 1}.jpg', masked_image)
+        cv2.imwrite(f'masked_image_{idx + 1}.jpg', masked_image)
 
+    return masked_image
 
 def preprocess_image(image: ndarray) -> ndarray:
     input_image = image.astype(np.float32) / 255.0
@@ -368,44 +368,66 @@ def main(args):
     if args.camera and not args.camera_id and not args.width and not args.height:
         print('Please provide camera_id, width and height for the camera')
         return
-
-    # Load the image
-    image = get_input_image(args)
-
-    print("input image shape", image.shape)
-    # Load the engine
-    engine = TRTEngine(args.engine_path)
-
-    # check if image size corresponds to the engine input size
-    engine_h, engine_w = engine.inp_info[0].shape[-2:]
-    image_h, image_w = image.shape[:2]
-
-    if (engine_h, engine_w) != (image_h, image_w):
-        print(f'Image size {image_h}x{image_w} does not match engine input size {engine_h}x{engine_w}')
-        print('Please resize the image to match the engine input size')
-        return
     
-    input_size = (image_h, image_w)
+    def infer_single_image():
+        # Load the image
+        image = get_input_image(args)
 
-    # Preprocess the image
-    input_image = preprocess_image(image)
-    # Run inference
-    results = engine(input_image)
-    prototypes = results[0][0]
-    output_0 = results[1][0]
-    # Extract masks
-    l_mask,l_class,l_conf,l_boxes = extract_masks(output_0,
-                                                  prototypes,
-                                                  input_size,
-                                                  threshold_detection=0.5,
-                                                  theshold_iou=0.45,
-                                                  threshold_mask=0)
+        print("input image shape", image.shape)
+        # Load the engine
+        engine = TRTEngine(args.engine_path)
 
-    # n detection
-    print("n masks: ", len(l_mask))
+        # check if image size corresponds to the engine input size
+        engine_h, engine_w = engine.inp_info[0].shape[-2:]
+        image_h, image_w = image.shape[:2]
 
-    # Show masks
-    show_masks(image, l_mask,l_class,l_conf,l_boxes, should_save=args.save_output)
+        if (engine_h, engine_w) != (image_h, image_w):
+            print(f'Image size {image_h}x{image_w} does not match engine input size {engine_h}x{engine_w}')
+            print('Please resize the image to match the engine input size')
+            return
+        
+        input_size = (image_h, image_w)
+
+        # Preprocess the image
+        input_image = preprocess_image(image)
+        # Run inference
+        results = engine(input_image)
+        prototypes = results[0][0]
+        output_0 = results[1][0]
+        # Extract masks
+        l_mask,l_class,l_conf,l_boxes = extract_masks(output_0,
+                                                    prototypes,
+                                                    input_size,
+                                                    threshold_detection=0.5,
+                                                    theshold_iou=0.45,
+                                                    threshold_mask=0)
+
+        # n detection
+        print("n masks: ", len(l_mask))
+
+        # Show masks
+        masked_image = show_masks(image, l_mask,l_class,l_conf,l_boxes, should_save=args.save_output)
+
+        return masked_image
+    
+    if args.camera:
+        # kill while loop by pressing 'q'
+        while True:
+            masked_image = infer_single_image()
+
+            cv2.imshow('Masked Image', masked_image)
+            cv2.waitKey(1)
+
+            # Add waitKey to allow the image to be displayed
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                cv2.destroyAllWindows()
+    else:
+        masked_image = infer_single_image()
+        cv2.imshow('Masked Image', masked_image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    print('Done!')
 
 if __name__ == '__main__':
     args = parse_args()

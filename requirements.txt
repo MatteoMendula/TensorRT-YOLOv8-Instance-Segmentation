@@ -1,0 +1,6 @@
+numpy==1.19.5
+onnxruntime==1.18.1
+opencv_python==4.10.0.84
+pycuda==2020.1
+tensorrt==8.2.1.9
+ultralytics==8.2.48
