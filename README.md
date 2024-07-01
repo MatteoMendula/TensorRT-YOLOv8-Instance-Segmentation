@@ -11,18 +11,17 @@ Though it was a challenging process and the outcome isn't flawless, I've shared 
 The initial resource I used to start are linked below, many congratulation and thanks to the authors, I would not be able to make any significant progress without your directions.
 
 ## Requirements
- - Jetson TX2 module 
+ - Jetson Nano  
 	- **nvidia@tegra-ubuntu:~/Documents/mybeatifulpath$** head -n 1 /etc/nv_tegra_release
-	R32 (release), REVISION: 6.1, GCID: 27863751, BOARD: t186ref, EABI: aarch64, DATE: Mon Jul 26 19:36:31 UTC 2021
+	R32 (release), REVISION: 7.5, GCID: 36557527, BOARD: t210ref, EABI: aarch64, DATE: Tue Jun 11 23:12:44 UTC 2024
 	
-	 - **nvidia@tegra-ubuntu:~/Documents/mybeatifulpath$** python3 --version
+	- **nvidia@tegra-ubuntu:~/Documents/mybeatifulpath$** python3 --version
 	Python 3.6.9
  - Check the  **requirements.txt**  file.
 
 ## Installation
 
     git clone https://github.com/ibaiGorordo/ONNX-YOLOv8-Instance-Segmentation.git
-    cd ONNX-YOLOv8-Instance-Segmentation
     pip install -r requirements.txt
 
 ## 1. Export ONNX model
