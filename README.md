@@ -64,6 +64,10 @@ So, move the onnx file generated on your laptop at the previous step on the boar
 
     /usr/src/tensorrt/bin/trtexec  --onnx="yolov8-seg${LETTER}.onnx"  --saveEngine="yolov8-seg${LETTER}.engine"  --explicitBatch  >  trtexec_log.txt
 
+For fp16 float rapresentation:
+
+    /usr/src/tensorrt/bin/trtexec  --onnx="yolov8-seg${LETTER}.onnx"  --saveEngine="yolov8-seg${LETTER}.engine"  --explicitBatch --fp16 >  trtexec_log.txt
+
 to build the engine and to save the log outputs to the *trtexec_log.txt* text file.
 This will produce a lot of information about the building process and even if some warning pops out (depending on your TRT version) this should work flowless.
 
