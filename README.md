@@ -3,7 +3,7 @@
 Python scripts performing instance segmentation using the **YOLOv8** model in Python3.
 ![! ONNX YOLOv8 Instance Segmentation](https://github.com/MatteoMendula/TensorRT-YOLOv8-Instance-Segmentation/blob/main/segmented.jpg?raw=true)
 *Original image*: Ultralytics
-This is the result of a finetuning on railway images, the model is able to detect the railway mask and the objects on it.
+This is the result of a finetuning on COCO images, the model is able to detect the standard coco classes within the image.
 
 This represents my personal take on extensive online resources, although I couldn't replicate it verbatim. Hence, I developed my custom pipeline to execute Yolov8-seg on TRT.
 I've exclusively tested this on Jetson TX2, so I cannot guarantee its compatibility with other platforms.
